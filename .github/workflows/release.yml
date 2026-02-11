@@ -36,8 +36,11 @@ jobs:
           generate_release_notes: true
 
       - name: Publish to GitHub Packages
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://pypi.pkg.github.com/murinmat/
-          user: __token__
-          password: ${{ secrets.GH_PACKAGES_TOKEN }}
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.GH_PACKAGES_TOKEN }}
+        run: |
+          python -m pip install --upgrade twine
+          python -m twine upload \
+            --repository-url https://pypi.pkg.github.com/murinmat/ \
+            dist/*
