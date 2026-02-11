@@ -2,4 +2,4 @@ import random
 
 
 def get_current_value() -> float:
-    return random.random()
+    return random.random() + 0.5
